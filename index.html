@@ -295,41 +295,47 @@ tailwind.config = {
 </style>
 
 <script>
-// Typing animation
-const fullText = "Vu Thang Le";
-let i = 0;
-const typer = setInterval(() => {
-  document.getElementById('typing-text').textContent = fullText.slice(0,++i) + (i < fullText.length ? '|' : '');
-  if (i >= fullText.length) clearInterval(typer);
-}, 80);
+// Skip gate if already unlocked this session
+if (sessionStorage.getItem('portfolio_unlocked') === '1') {
+  document.getElementById('gate').remove();
+} else {
+  // Typing animation
+  const fullText = "Vu Thang Le";
+  let i = 0;
+  const typer = setInterval(() => {
+    document.getElementById('typing-text').textContent = fullText.slice(0,++i) + (i < fullText.length ? '|' : '');
+    if (i >= fullText.length) clearInterval(typer);
+  }, 80);
 
-// Progress bar
-const labels = ['Initialising systems...','Loading portfolio data...','Verifying system status...','Preparing evidence modules...','Ready.'];
-let prog = 0;
-const bar = document.getElementById('progress-bar');
-const lbl = document.getElementById('loading-label');
-let labelIdx = 0;
-const progTimer = setInterval(() => {
-  prog = Math.min(prog + Math.random() * 3, 100);
-  bar.style.width = prog + '%';
-  const newIdx = Math.min(Math.floor(prog / 25), labels.length - 1);
-  if (newIdx !== labelIdx) { labelIdx = newIdx; lbl.textContent = labels[labelIdx]; }
-  if (prog >= 100) {
-    clearInterval(progTimer);
-    setTimeout(() => {
-      document.getElementById('phase-logo').style.display = 'none';
-      const p = document.getElementById('phase-pass');
-      p.style.display = 'flex';
-      p.style.animation = 'fade-in 0.4s ease';
-      setTimeout(() => document.getElementById('pass-input').focus(), 100);
-    }, 400);
-  }
-}, 60);
+  // Progress bar
+  const labels = ['Initialising systems...','Loading portfolio data...','Verifying system status...','Preparing evidence modules...','Ready.'];
+  let prog = 0;
+  const bar = document.getElementById('progress-bar');
+  const lbl = document.getElementById('loading-label');
+  let labelIdx = 0;
+  const progTimer = setInterval(() => {
+    prog = Math.min(prog + Math.random() * 3, 100);
+    bar.style.width = prog + '%';
+    const newIdx = Math.min(Math.floor(prog / 25), labels.length - 1);
+    if (newIdx !== labelIdx) { labelIdx = newIdx; lbl.textContent = labels[labelIdx]; }
+    if (prog >= 100) {
+      clearInterval(progTimer);
+      setTimeout(() => {
+        document.getElementById('phase-logo').style.display = 'none';
+        const p = document.getElementById('phase-pass');
+        p.style.display = 'flex';
+        p.style.animation = 'fade-in 0.4s ease';
+        setTimeout(() => document.getElementById('pass-input').focus(), 100);
+      }, 400);
+    }
+  }, 60);
+}
 
 function checkPass() {
   const val = document.getElementById('pass-input').value.trim();
   const err = document.getElementById('pass-error');
   if (val === 'vuthangc10') {
+    sessionStorage.setItem('portfolio_unlocked', '1');
     document.getElementById('gate').style.transition = 'opacity 0.6s';
     document.getElementById('gate').style.opacity = '0';
     setTimeout(() => document.getElementById('gate').remove(), 600);
