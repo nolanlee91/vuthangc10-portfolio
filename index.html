@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vu Thang Le — Financial Systems Portfolio | KDExpress Canada</title>
+<meta name="description" content="Financial Systems Developer portfolio — 6 production AI systems for KDExpress Canada. C10 Significant Benefit evidence portfolio."/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: "#7bd0ff",
+        secondary: "#4edea3",
+        tertiary: "#b7c8e1",
+      }
+    }
+  }
+}
+</script>
+<style>
+  :root {
+    --bg: #0b1326;
+    --surface-low: #131b2e;
+    --surface-mid: #171f33;
+    --surface-high: #222a3d;
+    --surface-highest: #2d3449;
+    --surface-lowest: #060e20;
+    --primary: #7bd0ff;
+    --secondary: #4edea3;
+    --tertiary: #b7c8e1;
+    --on-surface: #dae2fd;
+    --on-surface-variant: #c6c6cd;
+    --outline-variant: #45464d;
+    --error: #ffb4ab;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--on-surface);
+    margin: 0;
+    padding: 0;
+  }
+  .card {
+    background: var(--surface-mid);
+    border: 1px solid rgba(69,70,77,0.15);
+    border-radius: 12px;
+  }
+  .card-low {
+    background: var(--surface-low);
+    border: 1px solid rgba(69,70,77,0.12);
+    border-radius: 12px;
+  }
+  .tag {
+    background: var(--surface-high);
+    color: var(--tertiary);
+    border: 1px solid rgba(69,70,77,0.15);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  .gradient-btn {
+    background: linear-gradient(135deg, #7bd0ff 0%, #008abb 100%);
+    color: #001e2c;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .nav-link {
+    color: var(--on-surface-variant);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+  .metric-card {
+    padding: 32px;
+    border-radius: 12px;
+    background: var(--surface-mid);
+    border-left: 4px solid var(--primary);
+    position: relative;
+    overflow: hidden;
+  }
+  .section { padding: 0 48px; max-width: 1280px; margin: 0 auto; }
+  @media (max-width: 768px) {
+    .section { padding: 0 20px; }
+    .hero-grid { flex-direction: column !important; }
+    .caps-grid { grid-template-columns: 1fr !important; }
+    .systems-grid { grid-template-columns: 1fr !important; }
+    .impact-grid { grid-template-columns: 1fr !important; }
+    .roadmap-grid { flex-direction: column !important; }
+    .before-after { grid-template-columns: 1fr !important; }
+    .nav-links { display: none !important; }
+  }
+  .pulse {
+    animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .timeline-line {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    flex: 1;
+  }
+  .timeline-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .timeline-dot-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    padding-top: 4px;
+  }
+  .timeline-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--surface-highest);
+    border: 2px solid var(--outline-variant);
+    flex-shrink: 0;
+  }
+  .timeline-dot.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 0 12px rgba(123,208,255,0.5);
+  }
+  .timeline-connector {
+    width: 2px;
+    flex: 1;
+    min-height: 20px;
+    background: rgba(69,70,77,0.25);
+    margin-top: 6px;
+  }
+  .timeline-content {
+    flex: 1;
+    padding-bottom: 8px;
+  }
+  html { scroll-behavior: smooth; }
+
+  /* ── Button hover animations ── */
+  .btn-primary {
+    background: linear-gradient(135deg, #7bd0ff 0%, #008abb 100%);
+    color: #001e2c;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s cubic-bezier(0.2,0,0,1), box-shadow 0.2s cubic-bezier(0.2,0,0,1);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(123,208,255,0.3);
+  }
+  .btn-secondary {
+    background: var(--surface-high);
+    color: var(--on-surface);
+    border: 1px solid rgba(69,70,77,0.2);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s cubic-bezier(0.2,0,0,1), box-shadow 0.2s cubic-bezier(0.2,0,0,1), background 0.2s;
+  }
+  .btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    background: var(--surface-highest);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 1.5px solid rgba(123,208,255,0.5);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s cubic-bezier(0.2,0,0,1), box-shadow 0.2s cubic-bezier(0.2,0,0,1), background 0.2s, border-color 0.2s;
+  }
+  .btn-outline:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(123,208,255,0.2);
+    background: rgba(123,208,255,0.08);
+    border-color: rgba(123,208,255,0.8);
+  }
+
+  /* ── System card hover ── */
+  .system-card {
+    transition: transform 0.25s cubic-bezier(0.2,0,0,1), box-shadow 0.25s cubic-bezier(0.2,0,0,1), border-color 0.25s;
+    cursor: default;
+  }
+  .system-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    border-color: rgba(123,208,255,0.25) !important;
+  }
+
+  /* ── Architecture node ── */
+  .arch-node {
+    transition: transform 0.2s cubic-bezier(0.2,0,0,1), border-color 0.2s;
+  }
+  .arch-node:hover {
+    transform: translateY(-2px);
+    border-color: rgba(123,208,255,0.4) !important;
+  }
+
+</style>
+</head>
+<body>
+
+
+<!-- LOADING + PASSWORD SCREEN -->
+<div id="gate" style="position:fixed;inset:0;z-index:9999;background:#060e20;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Inter',sans-serif">
+
+  <!-- Phase 1: Logo animation -->
+  <div id="phase-logo" style="display:flex;flex-direction:column;align-items:center;gap:24px">
+    <!-- Animated rings -->
+    <div style="position:relative;width:100px;height:100px">
+      <div style="position:absolute;inset:0;border-radius:50%;border:2px solid rgba(123,208,255,0.15);animation:ring-spin 3s linear infinite"></div>
+      <div style="position:absolute;inset:8px;border-radius:50%;border:2px solid rgba(123,208,255,0.25);animation:ring-spin 2s linear infinite reverse"></div>
+      <div style="position:absolute;inset:16px;border-radius:50%;border:2px solid rgba(78,222,163,0.3);animation:ring-spin 1.5s linear infinite"></div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+        <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#7bd0ff,#008abb);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#001e2c">VL</div>
+      </div>
+    </div>
+    <!-- Name -->
+    <div style="text-align:center">
+      <div id="typing-text" style="font-size:22px;font-weight:700;color:#dae2fd;letter-spacing:0.05em;min-height:32px"></div>
+      <div style="font-size:12px;color:#7bd0ff;letter-spacing:0.2em;text-transform:uppercase;margin-top:6px;opacity:0.8">Financial Systems Developer</div>
+    </div>
+    <!-- Progress bar -->
+    <div style="width:200px;height:2px;background:rgba(69,70,77,0.3);border-radius:1px;overflow:hidden;margin-top:8px">
+      <div id="progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#7bd0ff,#4edea3);border-radius:1px;transition:width 0.1s linear"></div>
+    </div>
+    <div id="loading-label" style="font-size:11px;color:#c6c6cd;letter-spacing:0.15em;text-transform:uppercase;opacity:0.6">Initialising systems...</div>
+  </div>
+
+  <!-- Phase 2: Password prompt -->
+  <div id="phase-pass" style="display:none;flex-direction:column;align-items:center;gap:20px;width:100%;max-width:360px;padding:0 24px">
+    <div style="text-align:center">
+      <div style="font-size:11px;color:#7bd0ff;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px">Secure Access Required</div>
+      <div style="font-size:20px;font-weight:700;color:#dae2fd">Vu Thang Le — Portfolio</div>
+      <div style="font-size:13px;color:#c6c6cd;margin-top:6px">KDExpress Canada · C10 Evidence Portfolio</div>
+    </div>
+    <div style="width:100%;background:#131b2e;border:1px solid rgba(69,70,77,0.3);border-radius:10px;padding:24px;display:flex;flex-direction:column;gap:16px">
+      <div>
+        <label style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#c6c6cd;display:block;margin-bottom:8px">Access Code</label>
+        <div style="position:relative">
+          <input id="pass-input" type="password" placeholder="Enter access code"
+            style="width:100%;padding:12px 44px 12px 14px;background:#060e20;border:1px solid rgba(69,70,77,0.4);border-radius:6px;color:#dae2fd;font-size:14px;font-family:'Inter',sans-serif;outline:none;box-sizing:border-box;transition:border-color 0.2s"
+            onfocus="this.style.borderColor='rgba(123,208,255,0.5)'"
+            onblur="this.style.borderColor='rgba(69,70,77,0.4)'"
+            onkeydown="if(event.key==='Enter')checkPass()"
+          />
+          <span id="toggle-eye" onclick="togglePass()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:16px;opacity:0.5">👁</span>
+        </div>
+      </div>
+      <button onclick="checkPass()"
+        style="width:100%;padding:13px;background:linear-gradient(135deg,#7bd0ff,#008abb);color:#001e2c;font-weight:700;font-size:14px;border:none;border-radius:6px;cursor:pointer;letter-spacing:0.05em;transition:opacity 0.2s"
+        onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+        Enter Portfolio →
+      </button>
+      <div id="pass-error" style="display:none;text-align:center;font-size:12px;color:#ffb4ab;padding:8px;background:rgba(255,180,171,0.1);border-radius:4px">
+        Incorrect access code. Please try again.
+      </div>
+      <div style="text-align:center;font-size:11px;color:#45464d;margin-top:4px">
+        Access code is provided in the evidence document
+      </div>
+    </div>
+    <div style="font-size:10px;color:#45464d;text-align:center;letter-spacing:0.05em;line-height:1.6">
+      This portfolio is prepared for IRCC evaluation<br/>under C10 Significant Benefit Work Permit
+    </div>
+  </div>
+
+</div>
+
+<style>
+@keyframes ring-spin { to { transform: rotate(360deg); } }
+@keyframes fade-in { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+</style>
+
+<script>
+// Typing animation
+const fullText = "Vu Thang Le";
+let i = 0;
+const typer = setInterval(() => {
+  document.getElementById('typing-text').textContent = fullText.slice(0,++i) + (i < fullText.length ? '|' : '');
+  if (i >= fullText.length) clearInterval(typer);
+}, 80);
+
+// Progress bar
+const labels = ['Initialising systems...','Loading portfolio data...','Verifying system status...','Preparing evidence modules...','Ready.'];
+let prog = 0;
+const bar = document.getElementById('progress-bar');
+const lbl = document.getElementById('loading-label');
+let labelIdx = 0;
+const progTimer = setInterval(() => {
+  prog = Math.min(prog + Math.random() * 3, 100);
+  bar.style.width = prog + '%';
+  const newIdx = Math.min(Math.floor(prog / 25), labels.length - 1);
+  if (newIdx !== labelIdx) { labelIdx = newIdx; lbl.textContent = labels[labelIdx]; }
+  if (prog >= 100) {
+    clearInterval(progTimer);
+    setTimeout(() => {
+      document.getElementById('phase-logo').style.display = 'none';
+      const p = document.getElementById('phase-pass');
+      p.style.display = 'flex';
+      p.style.animation = 'fade-in 0.4s ease';
+      setTimeout(() => document.getElementById('pass-input').focus(), 100);
+    }, 400);
+  }
+}, 60);
+
+function checkPass() {
+  const val = document.getElementById('pass-input').value.trim();
+  const err = document.getElementById('pass-error');
+  if (val === 'vuthangc10') {
+    document.getElementById('gate').style.transition = 'opacity 0.6s';
+    document.getElementById('gate').style.opacity = '0';
+    setTimeout(() => document.getElementById('gate').remove(), 600);
+  } else {
+    err.style.display = 'block';
+    document.getElementById('pass-input').style.borderColor = 'rgba(255,180,171,0.5)';
+    setTimeout(() => {
+      err.style.display = 'none';
+      document.getElementById('pass-input').style.borderColor = 'rgba(69,70,77,0.4)';
+    }, 2500);
+  }
+}
+
+function togglePass() {
+  const inp = document.getElementById('pass-input');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+</script>
+
+<!-- NAV -->
+<nav style="position:fixed;top:0;width:100%;z-index:50;background:rgba(11,19,38,0.85);backdrop-filter:blur(24px);border-bottom:1px solid rgba(69,70,77,0.1)">
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 48px;max-width:1280px;margin:0 auto">
+    <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--on-surface)">
+      Financial Systems Developer
+    </div>
+    <div class="nav-links" style="display:flex;gap:32px">
+      <a href="#overview" class="nav-link active">Overview</a>
+      <a href="#architecture" class="nav-link">Architecture</a>
+      <a href="#systems" class="nav-link">Core Systems</a>
+      <a href="#impact" class="nav-link">Impact</a>
+      <a href="#roadmap" class="nav-link">Roadmap</a>
+    </div>
+    <a href="#systems" class="btn-primary" style="padding:8px 20px;border-radius:6px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase">
+      View Systems
+    </a>
+  </div>
+</nav>
+
+<main style="padding-top:80px">
+
+<!-- HERO -->
+<section id="overview" class="section" style="padding-top:80px;padding-bottom:80px">
+  <div class="hero-grid" style="display:flex;gap:64px;align-items:flex-start">
+    <div style="flex:1;space-y:24px">
+      <span style="display:inline-block;padding:4px 12px;background:var(--surface-high);color:var(--primary);font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;border-radius:4px;border:1px solid rgba(69,70,77,0.2);margin-bottom:20px">
+        C10 Work Permit — Significant Benefit Portfolio
+      </span>
+      <h1 style="font-size:clamp(42px,6vw,72px);font-weight:700;letter-spacing:-0.02em;line-height:1.1;color:var(--on-surface);margin:0 0 20px">
+        Financial Systems &<br/>
+        <span style="color:var(--primary)">AI Automation</span><br/>
+        Ecosystem
+      </h1>
+      <p style="font-size:17px;color:var(--on-surface-variant);max-width:520px;line-height:1.7;margin:0 0 28px">
+        Independently designed and deployed financial and logistics automation systems for KDExpress Canada. These systems are in active daily use across Canadian warehouse operations and have generated measurable operational and financial impact.
+      </p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="#systems" class="btn-primary" style="padding:14px 28px;border-radius:6px;font-size:14px">View Active Systems</a>
+        <a href="#impact" class="btn-secondary" style="padding:14px 28px;border-radius:6px;font-size:14px">Economic Impact</a>
+      </div>
+    </div>
+    <div style="flex:1;display:grid;gap:16px">
+      <div class="metric-card" style="border-left-color:var(--primary)">
+        <p style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--on-surface-variant);margin:0 0 8px">System Efficiency</p>
+        <p style="font-size:52px;font-weight:700;color:var(--primary);margin:0 0 4px">350+ Hours</p>
+        <p style="color:var(--on-surface-variant);margin:0;font-size:14px">Saved / Month across all operations</p>
+      </div>
+      <div class="metric-card" style="border-left-color:var(--secondary)">
+        <p style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--on-surface-variant);margin:0 0 8px">Estimated Annual Labour Savings</p>
+        <p style="font-size:52px;font-weight:700;color:var(--secondary);margin:0 0 4px">$88,100 CAD</p>
+        <p style="color:var(--on-surface-variant);margin:0;font-size:14px">Based on BC minimum wage ($17.40/hr)</p>
+      </div>
+      <div class="metric-card" style="border-left-color:var(--tertiary)">
+        <p style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--on-surface-variant);margin:0 0 8px">Operational Scale</p>
+        <p style="font-size:52px;font-weight:700;color:var(--on-surface);margin:0 0 4px">6 Systems</p>
+        <p style="color:var(--on-surface-variant);margin:0;font-size:14px">In Daily Production Use — All Locations</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<div class="section" style="padding-bottom:80px">
+  <div class="caps-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+    <div class="card-low" style="padding:36px">
+      <div style="font-size:32px;margin-bottom:20px">🏦</div>
+      <h4 style="font-size:18px;font-weight:600;margin:0 0 12px;color:var(--on-surface)">Financial Expertise</h4>
+      <p style="color:var(--on-surface-variant);font-size:14px;line-height:1.7;margin:0">10+ years in financial control, accounting, and internal governance — including 5 years as Chief Accountant. Specialised in designing systems with built-in audit trails, data integrity controls, and automated reconciliation for complex logistics operations.</p>
+    </div>
+    <div class="card-low" style="padding:36px">
+      <div style="font-size:32px;margin-bottom:20px">📦</div>
+      <h4 style="font-size:18px;font-weight:600;margin:0 0 12px;color:var(--on-surface)">Logistics Operations</h4>
+      <p style="color:var(--on-surface-variant);font-size:14px;line-height:1.7;margin:0">End-to-end warehouse management — AI-powered parcel intake, multi-warehouse tracking, flight assignment, and cross-border issue coordination between Canadian operations and international partners.</p>
+    </div>
+    <div class="card-low" style="padding:36px">
+      <div style="font-size:32px;margin-bottom:20px">⚡</div>
+      <h4 style="font-size:18px;font-weight:600;margin:0 0 12px;color:var(--on-surface)">Full-Stack Development</h4>
+      <p style="color:var(--on-surface-variant);font-size:14px;line-height:1.7;margin:0">React.js, Node.js, PostgreSQL, Power Automate, Google Gemini AI. Cloud deployment via Railway and Netlify. Six production systems independently designed, built, and maintained.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ARCHITECTURE -->
+<div id="architecture" style="background:var(--surface-low);border-top:1px solid rgba(69,70,77,0.1);border-bottom:1px solid rgba(69,70,77,0.1);padding:80px 0">
+  <div class="section" style="text-align:center">
+    <p style="color:var(--primary);font-size:11px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;margin:0 0 12px">Architecture Schema</p>
+    <h2 style="font-size:36px;font-weight:700;margin:0 0 56px;color:var(--on-surface)">Operational Flow & Data Persistence</h2>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px">
+      <div class="arch-node" style="padding:20px;background:var(--surface-mid);border:1px solid rgba(69,70,77,0.15);border-radius:10px;width:140px;text-align:center">
+        <div style="font-size:24px;margin-bottom:8px">📷</div>
+        <p style="font-size:13px;font-weight:700;margin:0;color:var(--on-surface)">Parcel Intake</p>
+        <p style="font-size:10px;color:var(--on-surface-variant);margin:4px 0 0">AI OCR Scan</p>
+      </div>
+      <span style="color:var(--outline-variant);font-size:20px">→</span>
+      <div class="arch-node" style="padding:20px;background:var(--surface-mid);border:1px solid rgba(69,70,77,0.15);border-radius:10px;width:140px;text-align:center">
+        <div style="font-size:24px;margin-bottom:8px">🏭</div>
+        <p style="font-size:13px;font-weight:700;margin:0;color:var(--on-surface)">Warehouse Ops</p>
+        <p style="font-size:10px;color:var(--on-surface-variant);margin:4px 0 0">WMS Platform</p>
+      </div>
+      <span style="color:var(--outline-variant);font-size:20px">→</span>
+      <div class="arch-node" style="padding:20px;background:var(--surface-mid);border:1px solid rgba(69,70,77,0.15);border-radius:10px;width:140px;text-align:center">
+        <div style="font-size:24px;margin-bottom:8px">💳</div>
+        <p style="font-size:13px;font-weight:700;margin:0;color:var(--on-surface)">Financial Recon</p>
+        <p style="font-size:10px;color:var(--on-surface-variant);margin:4px 0 0">QuickBooks / PA</p>
+      </div>
+      <span style="color:var(--outline-variant);font-size:20px">→</span>
+      <div class="arch-node" style="padding:20px;background:var(--surface-mid);border:1px solid rgba(69,70,77,0.15);border-radius:10px;width:140px;text-align:center">
+        <div style="font-size:24px;margin-bottom:8px">🚩</div>
+        <p style="font-size:13px;font-weight:700;margin:0;color:var(--on-surface)">Issue Tracking</p>
+        <p style="font-size:10px;color:var(--on-surface-variant);margin:4px 0 0">ANTS System</p>
+      </div>
+      <span style="color:var(--outline-variant);font-size:20px">→</span>
+      <div class="arch-node" style="padding:20px;background:var(--surface-mid);border:1px solid rgba(69,70,77,0.15);border-radius:10px;width:140px;text-align:center">
+        <div style="font-size:24px;margin-bottom:8px">📊</div>
+        <p style="font-size:13px;font-weight:700;margin:0;color:var(--on-surface)">Analytics</p>
+        <p style="font-size:10px;color:var(--on-surface-variant);margin:4px 0 0">Revenue Dashboard</p>
+      </div>
+      <span style="color:var(--outline-variant);font-size:20px">→</span>
+      <div class="arch-node" style="padding:20px;background:var(--surface-mid);border:1px solid rgba(69,70,77,0.15);border-radius:10px;width:140px;text-align:center">
+        <div style="font-size:24px;margin-bottom:8px">💲</div>
+        <p style="font-size:13px;font-weight:700;margin:0;color:var(--on-surface)">Pricing</p>
+        <p style="font-size:10px;color:var(--on-surface-variant);margin:4px 0 0">Rate Calculator</p>
+      </div>
+    </div>
+    <p style="margin-top:28px;font-size:13px;color:var(--on-surface-variant);text-align:center;font-style:italic;max-width:680px;margin-left:auto;margin-right:auto">
+      Designed for operational efficiency, data integrity, and traceability across all logistics and financial workflows.
+    </p>
+  </div>
+</div>
+
+<!-- CORE SYSTEMS -->
+<section id="systems" class="section" style="padding-top:80px;padding-bottom:80px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:16px">
+    <div>
+      <h2 style="font-size:40px;font-weight:700;margin:0 0 8px;color:var(--on-surface)">Core Production Systems</h2>
+      <p style="color:var(--on-surface-variant);margin:0">Mission-critical infrastructure driving KDExpress Canada operations.</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(78,222,163,0.1);border-radius:6px">
+      <div class="pulse" style="width:8px;height:8px;background:var(--secondary);border-radius:50%"></div>
+      <span style="color:var(--secondary);font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase">ALL SYSTEMS OPERATIONAL</span>
+    </div>
+  </div>
+
+  <div class="systems-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px">
+
+    <!-- System 1 -->
+    <div class="card system-card" style="display:flex;flex-direction:column">
+      <div style="padding:28px;flex:1;border-bottom:1px solid rgba(69,70,77,0.1)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <span style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--on-surface-variant)">System 1</span>
+              <span style="padding:3px 10px;border-radius:4px;font-size:10px;font-weight:700;background:rgba(78,222,163,0.12);color:var(--secondary)">Active</span>
+            </div>
+            <h3 style="font-size:20px;font-weight:700;margin:0 0 4px;color:var(--on-surface);line-height:1.3">Checkout & Logistics Management Platform (WMS-CFS)</h3>
+            <p style="font-size:13px;color:var(--on-surface-variant);margin:0">Full-stack warehouse management and customer fulfillment</p>
+          </div>
+          <div style="text-align:right;flex-shrink:0;font-size:13px;font-weight:700;font-family:monospace;color:var(--primary)">$36,700/yr savings</div>
+        </div>
+        <p style="font-size:14px;color:var(--on-surface-variant);line-height:1.7;margin:0 0 16px">Replaced legacy barcode system with AI-powered parcel-to-customer mapping. Real-time multi-warehouse tracking, customer self-service portal, and flight assignment management. Serves 200+ active customers daily.</p>
+        <ul style="margin:0 0 16px;padding:0;list-style:none">
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;margin-bottom:6px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> CS workload: 2–3 hrs/day → minimal oversight</li>
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;margin-bottom:6px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> ~70% reduction in customer Zalo enquiries</li>
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> 200+ customers self-service — no CS intervention</li>
+        </ul>
+      </div>
+      <div style="padding:16px 28px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="tag">React.js</span><span class="tag">Node.js</span><span class="tag">PostgreSQL</span><span class="tag">Railway</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+          <a href="system-1.html" class="btn-outline" style="padding:8px 20px;border-radius:6px;font-size:12px">View Details</a>
+          <span style="font-size:11px;color:var(--tertiary);font-family:monospace">🔗 railway.app (live)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- System 2 -->
+    <div class="card system-card" style="display:flex;flex-direction:column">
+      <div style="padding:28px;flex:1;border-bottom:1px solid rgba(69,70,77,0.1)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <span style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--on-surface-variant)">System 2</span>
+              <span style="padding:3px 10px;border-radius:4px;font-size:10px;font-weight:700;background:rgba(78,222,163,0.12);color:var(--secondary)">Active</span>
+            </div>
+            <h3 style="font-size:20px;font-weight:700;margin:0 0 4px;color:var(--on-surface);line-height:1.3">AI-Powered Label Scanning System</h3>
+            <p style="font-size:13px;color:var(--on-surface-variant);margin:0">Google Gemini 2.5 Flash OCR for automated parcel data extraction</p>
+          </div>
+          <div style="text-align:right;flex-shrink:0;font-size:13px;font-weight:700;font-family:monospace;color:var(--secondary)">$33,400/yr savings</div>
+        </div>
+        <p style="font-size:14px;color:var(--on-surface-variant);line-height:1.7;margin:0 0 16px">Mobile-optimised AI application using prompt engineering to extract full shipment data from label photos. Eliminates manual data entry across all warehouse locations with real-time sync to System 1.</p>
+        <ul style="margin:0 0 16px;padding:0;list-style:none">
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;margin-bottom:6px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> 160+ hours of labour saved per month</li>
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;margin-bottom:6px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> Data entry errors significantly reduced</li>
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> Standardised intake across all locations</li>
+        </ul>
+      </div>
+      <div style="padding:16px 28px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="tag">Google Gemini 2.5 Flash</span><span class="tag">HTML/JS</span><span class="tag">Cloudinary</span><span class="tag">Netlify</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+          <a href="system-2.html" class="btn-outline" style="padding:8px 20px;border-radius:6px;font-size:12px">View Details</a>
+          <span style="font-size:11px;color:var(--tertiary);font-family:monospace">🔗 netlify.app (live)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- System 3 -->
+    <div class="card system-card" style="display:flex;flex-direction:column">
+      <div style="padding:28px;flex:1;border-bottom:1px solid rgba(69,70,77,0.1)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <span style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--on-surface-variant)">System 3</span>
+              <span style="padding:3px 10px;border-radius:4px;font-size:10px;font-weight:700;background:rgba(78,222,163,0.12);color:var(--secondary)">Active</span>
+            </div>
+            <h3 style="font-size:20px;font-weight:700;margin:0 0 4px;color:var(--on-surface);line-height:1.3">Automated Financial Reconciliation System</h3>
+            <p style="font-size:13px;color:var(--on-surface-variant);margin:0">Power Automate + QuickBooks Online — 24/7 automated processing</p>
+          </div>
+          <div style="text-align:right;flex-shrink:0;font-size:13px;font-weight:700;font-family:monospace;color:var(--tertiary)">$18,370/yr savings</div>
+        </div>
+        <p style="font-size:14px;color:var(--on-surface-variant);line-height:1.7;margin:0 0 16px">24/7 automated payment processing workflow. Monitors payment inbox, extracts transaction data, maps to customer accounts, and imports consolidated journal entries into QuickBooks — replacing hundreds of manual entries daily.</p>
+        <ul style="margin:0 0 16px;padding:0;list-style:none">
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;margin-bottom:6px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> Reconciliation: 2 hrs/day → ~5 min/day</li>
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;margin-bottom:6px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> Journal entry errors significantly reduced</li>
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> Full 24/7 automated operation — no intervention</li>
+        </ul>
+      </div>
+      <div style="padding:16px 28px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="tag">Power Automate</span><span class="tag">QuickBooks Online</span><span class="tag">Excel Online</span><span class="tag">Microsoft 365</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+          <a href="system-3.html" class="btn-outline" style="padding:8px 20px;border-radius:6px;font-size:12px">View Details</a>
+          <span style="font-size:11px;color:var(--tertiary);font-family:monospace">🔗 Azure-hosted (24/7)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- System 4 -->
+    <div class="card system-card" style="display:flex;flex-direction:column">
+      <div style="padding:28px;flex:1;border-bottom:1px solid rgba(69,70,77,0.1)">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <span style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--on-surface-variant)">System 4</span>
+              <span style="padding:3px 10px;border-radius:4px;font-size:10px;font-weight:700;background:rgba(78,222,163,0.12);color:var(--secondary)">Active</span>
+            </div>
+            <h3 style="font-size:20px;font-weight:700;margin:0 0 4px;color:var(--on-surface);line-height:1.3">Cross-Border Issue Tracking System (ANTS)</h3>
+            <p style="font-size:13px;color:var(--on-surface-variant);margin:0">Structured parcel-level coordination with delivery partner</p>
+          </div>
+          <div style="text-align:right;flex-shrink:0;font-size:13px;font-weight:700;font-family:monospace;color:var(--primary)">Response: 24–48h → under 3h</div>
+        </div>
+        <p style="font-size:14px;color:var(--on-surface-variant);line-height:1.7;margin:0 0 16px">Replaces fragmented Zalo + Google Sheets workflow with structured parcel-level issue tracking. Colour-coded flag system (Red/Yellow) establishes clear accountability between KDExpress Canada and Vietnamese delivery partner.</p>
+        <ul style="margin:0 0 16px;padding:0;list-style:none">
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;margin-bottom:6px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> Issue response time significantly improved</li>
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;margin-bottom:6px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> Clear ownership per parcel — direct lookup</li>
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> Partner integration in progress</li>
+        </ul>
+      </div>
+      <div style="padding:16px 28px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="tag">Node.js</span><span class="tag">Express.js</span><span class="tag">PostgreSQL</span><span class="tag">Railway</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+          <a href="system-4.html" class="btn-outline" style="padding:8px 20px;border-radius:6px;font-size:12px">View Details</a>
+          <span style="font-size:11px;color:var(--tertiary);font-family:monospace">🔗 railway.app (live)</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- IMPACT / BEFORE-AFTER -->
+<section id="impact" class="section" style="padding-bottom:80px">
+  <div class="impact-grid" style="display:grid;grid-template-columns:1fr 2fr;gap:24px">
+
+    <!-- Supporting Tools -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h3 style="font-size:24px;font-weight:700;margin:0 0 8px;color:var(--on-surface)">Additional Tools</h3>
+
+      <!-- System 5 -->
+      <div class="card system-card" style="padding:24px;display:flex;flex-direction:column;gap:12px">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <span style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--on-surface-variant)">System 5</span>
+            <span style="padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;background:rgba(78,222,163,0.12);color:var(--secondary)">Active</span>
+          </div>
+          <p style="font-weight:700;color:var(--primary);margin:0 0 6px;font-size:15px">Revenue Analytics Dashboard</p>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.6;margin:0">Automated revenue segmentation by service type. Systematic new customer attribution for commission calculation. Bi-weekly management reporting.</p>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a href="system-5.html" class="btn-outline" style="padding:7px 16px;border-radius:6px;font-size:12px">View Details</a>
+        </div>
+      </div>
+
+      <!-- System 6 -->
+      <div class="card system-card" style="padding:24px;display:flex;flex-direction:column;gap:12px">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <span style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--on-surface-variant)">System 6</span>
+            <span style="padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;background:rgba(78,222,163,0.12);color:var(--secondary)">Active</span>
+          </div>
+          <p style="font-weight:700;color:var(--primary);margin:0 0 6px;font-size:15px">Shipping Rate Calculator & Invoice Generator</p>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.6;margin:0">Unified pricing platform for all services and customer tiers. Customer self-service via shareable web link. Auto-generates invoices upon pricing completion.</p>
+        </div>
+        <div style="display:flex;gap:8px">
+          <a href="system-6.html" class="btn-outline" style="padding:7px 16px;border-radius:6px;font-size:12px">View Details</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Before / After -->
+    <div class="card" style="padding:36px">
+      <h3 style="font-size:24px;font-weight:700;margin:0 0 28px;color:var(--on-surface)">Evolution of Operations</h3>
+      <div class="before-after" style="display:grid;grid-template-columns:1fr 1fr;gap:40px">
+        <div style="opacity:0.65">
+          <p style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--error);margin:0 0 20px">Legacy Workflow (Manual)</p>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--error)">✕</span> Barcode scanner — tracking numbers only</div>
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--error)">✕</span> Manual Zalo coordination for parcel ID</div>
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--error)">✕</span> Manual journal entry per transaction</div>
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--error)">✕</span> Google Sheets + Zalo for issues</div>
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--error)">✕</span> Multiple Google Sheets for pricing</div>
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--error)">✕</span> Spreadsheet-based data — no audit trail</div>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--secondary);margin:0 0 20px">Automated Workflow (Current)</p>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> AI-powered full data extraction at intake</div>
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> Real-time multi-warehouse tracking</div>
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> Automated consolidated journal entry daily</div>
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> Structured parcel-level issue tracking</div>
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> Unified pricing calculator + auto-invoice</div>
+            <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--on-surface-variant)"><span style="color:var(--secondary)">✓</span> PostgreSQL database with full audit trail</div>
+          </div>
+        </div>
+      </div>
+      <!-- Totals -->
+      <div style="margin-top:28px;padding:20px;background:var(--surface-low);border-radius:10px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;border:1px solid rgba(69,70,77,0.12)">
+        <div>
+          <p style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--on-surface-variant);margin:0 0 6px">Total Estimated Labour Savings</p>
+          <p style="font-size:32px;font-weight:700;color:var(--secondary);margin:0">$88,100 CAD / year</p>
+          <p style="font-size:12px;color:var(--on-surface-variant);margin:4px 0 0">Based on BC minimum wage ($17.40/hr) across all systems</p>
+        </div>
+        <div style="text-align:right">
+          <p style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--on-surface-variant);margin:0 0 6px">Labour Hours Recovered</p>
+          <p style="font-size:32px;font-weight:700;color:var(--primary);margin:0">350+ hrs/month</p>
+          <p style="font-size:12px;color:var(--on-surface-variant);margin:4px 0 0">Warehouse, CS & Accounting combined</p>
+        </div>
+      <div style="margin-top:12px;padding:12px 16px;background:rgba(69,70,77,0.1);border-radius:6px;border-left:3px solid var(--outline-variant)">
+        <p style="font-size:11px;color:var(--on-surface-variant);margin:0;line-height:1.6">Estimated from documented workload reduction across warehouse, customer service, and accounting functions. Based on BC minimum wage ($17.40/hr).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="section" style="padding-bottom:80px">
+  <div class="roadmap-grid" style="display:flex;gap:64px">
+    <div style="width:33%">
+      <h2 style="font-size:36px;font-weight:700;line-height:1.2;margin:0 0 20px;color:var(--on-surface)">Future Development Roadmap</h2>
+      <p style="color:var(--on-surface-variant);line-height:1.7;margin:0 0 28px">All planned developments are direct extensions of systems already built and currently in active use. Architectural continuity is essential for effective implementation.</p>
+      <div style="padding:24px;background:var(--surface-mid);border-radius:12px;border:1px solid rgba(123,208,255,0.15)">
+        <p style="font-size:14px;font-weight:700;margin:0 0 16px;color:var(--on-surface)">Available for Evaluation:</p>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--on-surface-variant)">
+          <div><span style="color:var(--primary)">→</span> Live system URLs (verifiable)</div>
+          <div><span style="color:var(--primary)">→</span> System screenshots & evidence document</div>
+          <div><span style="color:var(--primary)">→</span> Financial impact calculations</div>
+          <div><span style="color:var(--primary)">→</span> Technical portfolio documentation</div>
+        </div>
+      </div>
+    </div>
+    <div class="card system-card" style="flex:1;padding:32px;display:flex;flex-direction:column;gap:0">
+      <!-- Item 1 -->
+      <div style="display:flex;gap:20px;padding-bottom:24px;border-bottom:1px solid rgba(69,70,77,0.12)">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:4px">
+          <div class="timeline-dot"></div>
+          <div style="width:2px;flex:1;min-height:16px;background:rgba(69,70,77,0.2);margin-top:6px"></div>
+        </div>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px">
+            <h4 style="font-size:16px;font-weight:700;margin:0;color:var(--on-surface)">KDExpress Hub — Centralised AI Knowledge Base</h4>
+            <span style="font-size:11px;padding:3px 8px;background:var(--surface-low);color:var(--on-surface-variant);border-radius:4px;white-space:nowrap;font-family:monospace;flex-shrink:0">6 months</span>
+          </div>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65;margin:0">AI-powered platform consolidating all company data — pricing, procedures, updates — with natural language query interface and automated department notifications.</p>
+        </div>
+      </div>
+      <!-- Item 2 -->
+      <div style="display:flex;gap:20px;padding:24px 0;border-bottom:1px solid rgba(69,70,77,0.12)">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:4px">
+          <div class="timeline-dot"></div>
+          <div style="width:2px;flex:1;min-height:16px;background:rgba(69,70,77,0.2);margin-top:6px"></div>
+        </div>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px">
+            <h4 style="font-size:16px;font-weight:700;margin:0;color:var(--on-surface)">Zalo CRM & AI Customer Service Automation</h4>
+            <span style="font-size:11px;padding:3px 8px;background:var(--surface-low);color:var(--on-surface-variant);border-radius:4px;white-space:nowrap;font-family:monospace;flex-shrink:0">12–15 months</span>
+          </div>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65;margin:0">Integrated Zalo account management and AI-assisted response system. Automates routine enquiry responses, routes complex cases to human CS staff.</p>
+        </div>
+      </div>
+      <!-- Item 3 -->
+      <div style="display:flex;gap:20px;padding:24px 0;border-bottom:1px solid rgba(69,70,77,0.12)">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:4px">
+          <div class="timeline-dot"></div>
+          <div style="width:2px;flex:1;min-height:16px;background:rgba(69,70,77,0.2);margin-top:6px"></div>
+        </div>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px">
+            <h4 style="font-size:16px;font-weight:700;margin:0;color:var(--on-surface)">Platform Rebuild & System Consolidation</h4>
+            <span style="font-size:11px;padding:3px 8px;background:var(--surface-low);color:var(--on-surface-variant);border-radius:4px;white-space:nowrap;font-family:monospace;flex-shrink:0">6 months</span>
+          </div>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65;margin:0">Separate service modules for improved performance and scalability. Integrate all existing systems into a unified architecture supporting increased operational scale.</p>
+        </div>
+      </div>
+      <!-- Item 4 -->
+      <div style="display:flex;gap:20px;padding-top:24px">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:4px">
+          <div class="timeline-dot"></div>
+        </div>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px">
+            <h4 style="font-size:16px;font-weight:700;margin:0;color:var(--on-surface)">AI-Assisted Workflow Automation Across Departments</h4>
+            <span style="font-size:11px;padding:3px 8px;background:var(--surface-low);color:var(--on-surface-variant);border-radius:4px;white-space:nowrap;font-family:monospace;flex-shrink:0">Up to 24 months</span>
+          </div>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65;margin:0">Incremental deployment of AI automation across customer service, operations, and finance — reducing repetitive manual tasks and enabling scalable growth.</p>
+        </div>
+      </div>
+      <!-- View Details button -->
+      <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(69,70,77,0.12)">
+        <a href="system-7.html" class="btn-outline" style="padding:10px 24px;border-radius:6px;font-size:13px">View Full Roadmap Details</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer style="background:var(--surface-lowest)">
+  <div style="border-top:1px solid rgba(69,70,77,0.1)">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:36px 48px;max-width:1280px;margin:0 auto;flex-wrap:wrap;gap:16px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--on-surface-variant)">
+      <div>© 2026 Vu Thang Le — KDExpress Canada. Proprietary & Confidential.</div>
+      <div style="display:flex;gap:32px">
+        <span>NOC 21221</span>
+        <span>R205(a) — C10</span>
+        <span>IRCC Evidence Portfolio</span>
+      </div>
+    </div>
+    <div style="padding-bottom:28px;text-align:center;font-size:10px;opacity:0.35;color:var(--on-surface-variant);letter-spacing:0.1em">
+      This portfolio is prepared solely for IRCC evaluation under the C10 Significant Benefit Work Permit category. All systems presented are currently in active operational use within KDExpress Canada.
+    </div>
+  </div>
+</footer>
+
+<script>
+// Smooth active nav tracking
+const sections = ['overview','architecture','systems','impact','roadmap'];
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = 'overview';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href').replace('#','');
+    link.classList.toggle('active', href === current);
+  });
+});
+</script>
+
+<a href="#overview" id="back-to-top" style="display:none;position:fixed;bottom:32px;right:32px;z-index:100;padding:10px 16px;background:var(--surface-high);color:var(--primary);border:1px solid rgba(123,208,255,0.2);border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:0.05em;backdrop-filter:blur(12px);transition:opacity 0.2s">
+  ↑ Top
+</a>
+<script>
+const btn = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => {
+  btn.style.display = window.scrollY > 400 ? 'block' : 'none';
+});
+</script>
+</body>
+</html>
